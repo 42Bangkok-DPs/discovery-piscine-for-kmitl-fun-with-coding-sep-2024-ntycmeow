@@ -7,5 +7,6 @@ fi
 
 for arg in "$@"
 do
-	mkdir "ex"$i
+	folder_name="ex$arg"
+	mkdir -p "$folder_name"
 done
