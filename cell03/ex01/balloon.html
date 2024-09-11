@@ -49,7 +49,7 @@
         balloon.addEventListener('mouseleave', () => {
             if (size > 200) {
                 size -= 5;
-                colorIndex = (colorIndex - 1 + colors.length) % colors.length;
+                colorIndex = (colorIndex - 5 + colors.length) % colors.length;
             }
             balloon.style.width = size + 'px';
             balloon.style.height = size + 'px';
