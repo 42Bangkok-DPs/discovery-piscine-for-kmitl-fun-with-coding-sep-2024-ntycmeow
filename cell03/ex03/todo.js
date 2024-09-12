@@ -1,4 +1,3 @@
-// Load TODO list from cookies when the page loads
 window.onload = function() {
     const todoList = getCookie('todoList');
     if (todoList) {
@@ -7,7 +6,6 @@ window.onload = function() {
     }
 };
 
-// Create new TODO
 function newTodo() {
     const task = prompt('Enter a new task:');
     if (task) {
@@ -16,7 +14,6 @@ function newTodo() {
     }
 }
 
-// Add new TODO item to the list
 function addTodoItem(task) {
     const todoDiv = document.createElement('div');
     todoDiv.className = 'todo-item';
@@ -31,7 +28,6 @@ function addTodoItem(task) {
     ftList.insertBefore(todoDiv, ftList.firstChild);
 }
 
-// Save the TODO list in a cookie
 function saveTodoList() {
     const todos = [];
     document.querySelectorAll('.todo-item').forEach(item => {
@@ -40,7 +36,6 @@ function saveTodoList() {
     setCookie('todoList', JSON.stringify(todos), 7);
 }
 
-// Set a cookie
 function setCookie(name, value, days) {
     let expires = '';
     if (days) {
@@ -51,7 +46,6 @@ function setCookie(name, value, days) {
     document.cookie = name + '=' + (value || '') + expires + '; path=/';
 }
 
-// Get a cookie by name
 function getCookie(name) {
     const nameEQ = name + '=';
     const ca = document.cookie.split(';');
