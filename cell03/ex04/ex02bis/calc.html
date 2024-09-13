@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        * {
+            margin: 0;
+        }
+
+        body {
+            background-color: #f9ffa2;
+            font-family: Arial, sans-serif;
+        }
+
+        .center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        input[type="submit"] {
+            margin: 5px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff66b2;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #11d292;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div class="center">
+        <form id="calculatorForm">
+            <input type="text" id="leftValue" name="leftValue" placeholder="Enter first number">
+            <select id="operators" name="operators">
+                <option value="+">+</option>
+                <option value="-">-</option>
+                <option value="*">*</option>
+                <option value="/">/</option>
+                <option value="%">%</option>
+            </select>
+            <input type="text" id="rightValue" name="rightValue" placeholder="Enter second number">
+            <input type="submit" value="Try me!">
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#calculatorForm").submit(function (event) {
+                event.preventDefault();  // Prevent form from submitting
+                cal();  // Call the calculation function
+            });
+            
+            function cal() {
+                let num1 = $.trim($("#leftValue").val());  // Get value of first number
+                let num2 = $.trim($("#rightValue").val());  // Get value of second number
+                let op = $("#operators").val();  // Get selected operator
+
+                if (isNaN(num1) || isNaN(num2) || num1 === '' || num2 === '') {
+                    alert("Error :(");
+                    return;
+                }
+
+                num1 = parseFloat(num1);
+                num2 = parseFloat(num2);
+
+                let result;
+
+                if ((num1 >= 0) && (num2 >= 0)) {
+                    switch (op) {
+                        case "+":
+                            result = num1 + num2;
+                            break;
+                        case "-":
+                            result = num1 - num2;
+                            break;
+                        case "*":
+                            result = num1 * num2;
+                            break;
+                        case "/":
+                            if (num2 !== 0) {
+                                result = num1 / num2;
+                            } else {
+                                result = "It’s over 9000!";
+                            }
+                            break;
+                        case "%":
+                            if (num2 !== 0) {
+                                result = num1 % num2;
+                            } else {
+                                result = "It’s over 9000!";
+                            }
+                            break;
+                    }
+                    alert(result);
+                } else {
+                    alert("Error :(");
+                }
+            }
+            
+            setInterval(function () {
+                alert("Please, use me...");
+            }, 30000);
+        });
+    </script>
+
+</body>
+
+</html>
