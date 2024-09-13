@@ -73,6 +73,7 @@
 
                 if (!validNumberPattern.test(num1) || !validNumberPattern.test(num2)) {
                     alert("Error :(");
+                    console.log('Error :(');
                     return;
                 }
 
@@ -81,6 +82,7 @@
 
                 if ( !Number.isInteger(num1) || !Number.isInteger(num2)|| isNaN(num1) || isNaN(num2) || num1 === '' || num2 === '') {
                     alert("Error :(");
+                    console.log('Error :(');
                     return;
                 }
 
@@ -114,8 +116,10 @@
                             break;
                     }
                     alert(result);
+                    console.log(result);
                 } else {
                     alert("Error :(");
+                    console.log('Error :(');
                 }
             }
 
