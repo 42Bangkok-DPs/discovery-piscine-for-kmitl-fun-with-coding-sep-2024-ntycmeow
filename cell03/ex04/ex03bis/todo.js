@@ -1,38 +1,62 @@
 $(document).ready(function() {
-    const todoList = getCookie('todoList');
-    if (todoList) {
-        const todos = JSON.parse(todoList);
-        todos.forEach(todo => addTodoItem(todo));
-    }
+    const todos = getAllTodoCookies();
+    todos.forEach(todo => {
+        
+        const decodedTodo = decodeURIComponent(todo);
+        addTodoItem(decodedTodo);
+
+    });
+
+    $('#newTodoButton').click(newTodo);
 });
 
 function newTodo() {
     const task = prompt('Enter a new task:');
     if (task) {
-        addTodoItem(task);
-        saveTodoList();
+        addTodoItem(task); 
+        saveNewTodoCookie(task); 
     }
 }
 
 function addTodoItem(task) {
-    const $todoDiv = $('<div></div>', {
-        class: 'todo-item',
-        text: task
-    }).click(function() {
+    const $todoDiv = $('<div></div>').addClass('todo-item').text(task).click(function() {
         if (confirm('Do you want to remove this task?')) {
             $(this).remove();
-            saveTodoList();
+            removeTodoCookie(task);
         }
     });
+
     $('#ft_list').prepend($todoDiv);
 }
 
-function saveTodoList() {
-    const todos = [];
-    $('.todo-item').each(function() {
-        todos.push($(this).text());
+function saveNewTodoCookie(task) {
+    const date = new Date();
+    const uniqueId = date.getTime(); 
+    setCookie('todo_' + uniqueId, encodeURIComponent(task), 7); 
+}
+
+function removeTodoCookie(task) {
+    
+    const cookies = document.cookie.split(';');
+    cookies.forEach(cookie => {
+        const [name, value] = cookie.split('=');
+        if (decodeURIComponent(value.trim()) === task) {
+
+            setCookie(name.trim(), '', -1);
+        }
     });
-    setCookie('todoList', JSON.stringify(todos), 7);
+}
+
+function getAllTodoCookies() {
+    const cookies = document.cookie.split(';');
+    const todos = [];
+    cookies.forEach(cookie => {
+        const [name, value] = cookie.split('=');
+        if (name.trim().startsWith('todo_')) {
+            todos.push(value.trim());
+        }
+    });
+    return todos;
 }
 
 function setCookie(name, value, days) {
@@ -43,15 +67,4 @@ function setCookie(name, value, days) {
         expires = '; expires=' + date.toUTCString();
     }
     document.cookie = name + '=' + (value || '') + expires + '; path=/';
-}
-
-function getCookie(name) {
-    const nameEQ = name + '=';
-    const ca = document.cookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
-    }
-    return null;
 }
