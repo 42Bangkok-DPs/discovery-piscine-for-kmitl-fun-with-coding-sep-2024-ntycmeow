@@ -37,13 +37,14 @@
             background-color: #11d292;
         }
     </style>
+    <!-- Import jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
     <div class="center">
         <form id="calculatorForm">
-            <input type="text" id="leftValue" name="leftValue" placeholder="Enter first number">
+            <input type="text" id="num1val" name="num1val" placeholder="Enter first number">
             <select id="operators" name="operators">
                 <option value="+">+</option>
                 <option value="-">-</option>
@@ -51,7 +52,7 @@
                 <option value="/">/</option>
                 <option value="%">%</option>
             </select>
-            <input type="text" id="rightValue" name="rightValue" placeholder="Enter second number">
+            <input type="text" id="num2val" name="num2val" placeholder="Enter second number">
             <input type="submit" value="Try me!">
         </form>
     </div>
@@ -59,22 +60,31 @@
     <script>
         $(document).ready(function () {
             $("#calculatorForm").submit(function (event) {
-                event.preventDefault();  // Prevent form from submitting
-                cal();  // Call the calculation function
+                event.preventDefault(); 
+                cal();  
             });
             
             function cal() {
-                let num1 = $.trim($("#leftValue").val());  // Get value of first number
-                let num2 = $.trim($("#rightValue").val());  // Get value of second number
-                let op = $("#operators").val();  // Get selected operator
+                let num1 = $.trim($("#num1val").val());  
+                let num2 = $.trim($("#num2val").val());  
+                let op = $("#operators").val(); 
+                
+                const validNumberPattern = /^[+-]?(\d+(\.\d*)?|\.\d+)$/; 
 
-                if (isNaN(num1) || isNaN(num2) || num1 === '' || num2 === '') {
+                if (!validNumberPattern.test(num1) || !validNumberPattern.test(num2)) {
                     alert("Error :(");
                     return;
                 }
 
                 num1 = parseFloat(num1);
                 num2 = parseFloat(num2);
+
+                if ( !Number.isInteger(num1) || !Number.isInteger(num2)|| isNaN(num1) || isNaN(num2) || num1 === '' || num2 === '') {
+                    alert("Error :(");
+                    return;
+                }
+
+
 
                 let result;
 
@@ -109,7 +119,7 @@
                     alert("Error :(");
                 }
             }
-            
+
             setInterval(function () {
                 alert("Please, use me...");
             }, 30000);
