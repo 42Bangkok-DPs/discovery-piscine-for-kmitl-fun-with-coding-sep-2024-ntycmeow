@@ -53,7 +53,7 @@
             $balloon.mouseleave(function() {
                 if (size > 200) {
                     size -= 5;
-                    colorIndex = (colorIndex + 1) % colors.length;
+                    colorIndex = (colorIndex - 1 + colors.length) % colors.length;
                     $balloon.css({
                         'width': size + 'px',
                         'height': size + 'px',
