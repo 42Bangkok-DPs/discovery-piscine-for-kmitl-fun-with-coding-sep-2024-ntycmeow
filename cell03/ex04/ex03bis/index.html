@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background-color: #fcff9e;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #ft_list {
+            background-color: #fffcfd;
+            border: 2px solid #ff1673;
+            border-radius: 5px;
+            padding: 20px 100px ;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .todo-item {
+            background-color: rgba(255, 173, 206, 0.443);
+            margin: 5px 0;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #ff1673;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            background-color: #0fc7b4;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>TO DO ! &#128521;</h1>
+
+    <button onclick="newTodo()">New</button>
+    <div id="ft_list"></div>
+
+    <script src="todo.js"></script>
+
+</body>
+</html>
